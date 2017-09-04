@@ -1,0 +1,142 @@
+#profile-upload{
+    background-image:url('');
+    background-size:cover;
+    background-position: center;
+    height: 110px; width: 110px;
+    border: 1px solid #bbb;
+    position:relative;
+  border-radius:250px;
+  overflow:hidden;
+}
+#profile-upload:hover input.upload{
+  display:block;
+}
+#profile-upload:hover .hvr-profile-img{
+  display:inline-block;
+ }
+#profile-upload .fa{   margin: auto;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    text-align: center;
+    right: 0;
+    padding: 6px;
+   opacity:1;
+  transition:opacity 1s linear;
+   -webkit-transform: scale(.75); 
+ 
+ 
+}
+#profile-upload:hover .fa{
+   opacity:1;
+   -webkit-transform: scale(1); 
+}
+#profile-upload input.upload {
+    z-index:1;
+    left: 0;
+    margin: 0;
+    bottom: 0;
+    top: 0;
+    padding: 0;
+    opacity: 0;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    background:#ccc;
+    width:100%;
+    display:none;
+}
+
+#profile-upload .hvr-profile-img {
+  width:100%;
+  height:100%;
+  display: none;
+  position:absolute;
+  vertical-align: middle;
+  position: relative;
+  background: transparent;
+ }
+#profile-upload .fa:after {
+    content: "";
+    position:absolute;
+    bottom:0; left:0;
+    width:100%; height:0px;
+    background:rgba(0,0,0,0.3);
+    z-index:-1;
+    transition: height 0.3s;
+    }
+
+#profile-upload:hover .fa:after { height:100%; }
+
+/* teacher css*/
+
+#profile-upload2{
+    background-image:url('');
+    background-size:cover;
+    background-position: center;
+    height: 110px; width: 110px;
+    border: 1px solid #bbb;
+    position:relative;
+  border-radius:250px;
+  overflow:hidden;
+}
+#profile-upload2:hover input.upload{
+  display:block;
+}
+#profile-upload2:hover .hvr-profile-img{
+  display:inline-block;
+ }
+#profile-upload2 .fa{   margin: auto;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    text-align: center;
+    right: 0;
+    padding: 6px;
+   opacity:1;
+  transition:opacity 1s linear;
+   -webkit-transform: scale(.75); 
+ 
+ 
+}
+#profile-upload2:hover .fa{
+   opacity:1;
+   -webkit-transform: scale(1); 
+}
+#profile-upload2 input.upload {
+    z-index:1;
+    left: 0;
+    margin: 0;
+    bottom: 0;
+    top: 0;
+    padding: 0;
+    opacity: 0;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    background:#ccc;
+    width:100%;
+    display:none;
+}
+
+#profile-upload2 .hvr-profile-img {
+  width:100%;
+  height:100%;
+  display: none;
+  position:absolute;
+  vertical-align: middle;
+  position: relative;
+  background: transparent;
+ }
+#profile-upload2 .fa:after {
+    content: "";
+    position:absolute;
+    bottom:0; left:0;
+    width:100%; height:0px;
+    background:rgba(0,0,0,0.3);
+    z-index:-1;
+    transition: height 0.3s;
+    }
+
+#profile-upload2:hover .fa:after { height:100%; }
+

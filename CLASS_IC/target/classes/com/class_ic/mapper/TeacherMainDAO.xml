@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+@Project : CLASS-IC
+@File name : TeacherMainDAO.xml
+@Author : 박소현
+@Data : 2017.07.03
+@Desc :
+ -->
+ <mapper namespace="com.class_ic.dao.TeacherMainDAO">
+ 
+
+
+ <!-- 강사 메인 페이지 출력: 2017.07.03 박소현 -->
+<select id="teacherMain"  resultType="com.class_ic.vo.ClassDTO" parameterType="String">
+   select * from class where classCode=#{classCode}
+</select>
+
+ <!-- 강사 메인 페이지 출력: 2017.07.03 위진학 -->
+<select id="memberCountByTeacher"  resultType="Integer" parameterType="String">
+select count(*) from classmember where classCode=#{classCode} and not email in(select email from class)
+</select>
+
+
+<select id="techerEmail" parameterType="String" resultType="String">
+select email from class where classCode=#{classCode}
+</select>
+
+
+</mapper>

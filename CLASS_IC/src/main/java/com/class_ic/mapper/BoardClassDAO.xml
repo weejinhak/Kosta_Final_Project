@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.class_ic.dao.BoardClassDAO">
+
+<select id="selectCate" parameterType="String" resultType="com.class_ic.vo.SubCategoryDTO">
+select distinct cateCode from lectureboard
+where lectureNo in(select lectureNo from classbylecture)
+and  classCode in (select classCode from classMember where email=#{email}) 
+</select>
+
+<select id="selectSubcate" parameterType="com.class_ic.vo.SubCategoryDTO" resultType="com.class_ic.vo.SubCategoryDTO">
+
+select distinct subcateCode from lectureboard
+where lectureNo in(select lectureNo from classbylecture)
+and  classCode in (select classCode from classMember where email=#{email}) 
+and cateCode=#{cateCode}
+</select>
+
+
+<select id="selectCateSubcateboard" resultType="com.class_ic.vo.LectureBoardDTO"
+parameterType="com.class_ic.vo.SubCategoryDTO">
+select * from lectureboard
+where lectureNo in(select lectureNo from classbylecture)
+and  classCode in (select classCode from classMember where email=#{email})
+and cateCode=#{cateCode} and subcateCode=#{subcateCode} order by lectureNo desc
+
+
+</select>
+
+ 
+<!--통합게시판 수정화면 출력   --> 
+<select id="totalboardEdit" resultType="com.class_ic.vo.LectureBoardDTO" parameterType="Integer">
+   select * from lectureboard where lectureNo=#{lectureNo}
+</select>
+
+<!-- 통합게시판 글 기수로 보내기 -->
+<insert id="boardMultiSend" parameterType="com.class_ic.vo.ClassByLectureDTO">
+
+insert into classbylecture values((select Max(lectureNo) from lectureboard),${classCode}) 
+</insert>
+
+<select id="selectCateboard" parameterType="com.class_ic.vo.SubCategoryDTO"
+resultType="com.class_ic.vo.LectureBoardDTO">
+select * from lectureboard
+where lectureNo in(select lectureNo from classbylecture)
+and  classCode in (select classCode from classMember where email=#{email}) 
+and cateCode=#{cateCode} ORDER BY lectureNo desc limit 4
+</select>
+
+<delete id="deletx" parameterType="com.class_ic.vo.ClassByLectureDTO">
+
+delete from classbylecture where classCode=#{classCode} and lectureNo=#{lectureNo}
+</delete>
+
+<select id="selectTeacher" resultType="String" parameterType="String">
+select email from classmember where classCode=#{classCode}
+and email in(select email from ClassicAuthority where authority='ROLE_TEACHER') ;
+
+</select>
+
+</mapper>

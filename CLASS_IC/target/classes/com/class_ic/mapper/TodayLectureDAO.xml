@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- @Project : CLASS-IC @File name : todaylecture.xml @Author : 김은영 @Data 
+   : 2017.06.19 @Desc : -->
+<mapper namespace="com.class_ic.dao.TodayLectureDAO">
+
+
+   <select id="allBoard" resultType="com.class_ic.vo.TodayLectureVO" parameterType="String">
+            select * from lectureboard where subcatecode=#{subcateCode} 
+      
+   </select>
+
+   <select id="todayLectureList" resultType="com.class_ic.vo.TodayLectureVO">
+   
+      SELECT * FROM todayslecture NATURAL JOIN LectureBoard where lectureBM = current_date()
+   </select>
+
+
+
+   <insert id="insertTodayLect" parameterType="String">
+      insert into todayslecture(lectureBM,lectureNo) values(now(),#{param1})
+   </insert>
+   
+   <delete id="deleteTodayLect" parameterType="Integer">
+     delete from todayslecture where todayNo=#{todayNo}
+   </delete>
+
+
+
+</mapper>

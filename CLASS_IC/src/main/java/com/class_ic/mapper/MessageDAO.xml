@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.class_ic.dao.MessageDAO">
+ 
+<select  id="selectSameMemberList" parameterType="String" resultType="com.class_ic.vo.MemberDTO">
+select email ,name from member where email in(select email from classmember where classCode=#{classCode})
+</select>
+
+<select  id="selectMsgContentList" parameterType="String" resultType="com.class_ic.vo.MessageDTO">
+SELECT m.name as name, mr.messageNo as messageNO, mr.msContent as msContent, mr.msSendTime as msSendTime, mr.emailS as emailS
+FROM (SELECT ms.emailR as email, m.messageNo as messageNo, m.msContent as msContent, m.msSendTime as msSendTime, m.emailS as emailS
+FROM messagereceive ms JOIN message m
+ON ms.messageNo = m.messageNo
+WHERE ms.emailR = #{param1}) mr JOIN member m
+ON mr.email = m.email
+WHERE m.email=#{param1}
+</select>
+
+</mapper>
+

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.class_ic.dao.BoardDAO">
+
+<!--통합게시판 글쓰기 -->
+<insert id="insertBoardContent" parameterType="com.class_ic.vo.LectureBoardDTO">
+insert into lectureboard(classCode,cateCode,subcateCode,lectureTitle,lectureContent,lectureDate)
+values(#{classCode},#{cateCode},#{subcateCode},#{lectureTitle},#{lectureContent},CURDATE())
+</insert>
+
+<!--카테고리 select box  -->
+<select id="selectCategory" resultType="com.class_ic.vo.CategoryDTO" parameterType="String">
+select * from category where email=#{email}
+</select>
+
+<!--서브카테고리 select box  -->
+<select id="selectSubCategory" resultType="com.class_ic.vo.SubCategoryDTO" parameterType="String">
+select * from subcategory where email=#{email}
+</select>
+
+<!-- LectureBoard 추가부분 -->
+
+<!-- 통합게시판 화면 출력 -->
+ <select id="allBoard" resultType="com.class_ic.vo.LectureBoardDTO" parameterType="com.class_ic.vo.SubCategoryDTO">
+    select * from lectureboard where cateCode=#{cateCode} and subcateCode=#{subcateCode} and classCode in
+(select classCode from classMember where email=#{email}) order by lectureNo desc
+ </select> 
+ 
+<!--통합게시판 수정화면 출력   --> 
+<select id="totalboardEdit" resultType="com.class_ic.vo.LectureBoardDTO" parameterType="Integer">
+   select * from lectureboard where lectureNo=#{lectureNo}
+</select>
+
+<!--통합게시판 상세보기 화면 출력   --> 
+<select id="totalBoard_contentview" resultType="com.class_ic.vo.LectureBoardDTO"
+      parameterType="Integer"> 
+
+select lectureNo, classCode, cateCode, subcateCode, lectureTitle, lectureContent,  lectureDate FROM lectureboard WHERE  lectureNo = #{lectureNo}
+</select>
+
+<!--통합게시판 상세보기 파일 출력   --> 
+<select id="totalBoard_contenFile" resultType="com.class_ic.vo.LectureBoardDTO"
+      parameterType="Integer"> 
+
+SELECT  f.fileSrc as fileSrc
+FROM lectureboard l JOIN filelecture f
+ON l.lectureNo = f.lectureNo
+WHERE f.lectureNo=#{lectureNo}
+</select>
+
+<!--통합게시판 상세보기 링크 출력   --> 
+<select id="totalBoard_contenLink" resultType="com.class_ic.vo.LectureBoardDTO"
+      parameterType="Integer"> 
+
+SELECT li.linkTitle as linkTitle, li.linkSrc as linkSrc
+FROM link li JOIN lectureboard lb
+ON li.lectureNo = lb.lectureNo
+WHERE li.lectureNo = #{lectureNo}
+</select>
+
+
+<!-- 통합게시판 수정 완료 -->
+<update id="totalboardEditOk" parameterType="com.class_ic.vo.LectureBoardDTO">
+	update lectureboard set lectureTitle=#{lectureTitle}, lectureContent=#{lectureContent} where lectureNo=#{lectureNo}
+</update>
+
+<!--통합게시판 삭제 -->
+<delete id="deleteLect" parameterType="Integer">
+   delete from lectureboard where lectureNo=#{lectureNo}
+</delete>
+
+<!--  전체 글 출력 -->
+<select id="allList" resultType="com.class_ic.vo.LectureBoardDTO" >
+
+select * from lectureboard where classCode in 
+(select classCode from classMember where email=#{email}) order by lectureNo desc
+
+
+</select>
+
+<!-- 파일 추가 부분  -->
+
+<!-- 통합게시판 자료 입력 -->
+<insert id="insertFile">
+	INSERT INTO filelecture (lectureNo, fileSrc ) VALUES (LAST_INSERT_ID() , #{fileSrc})
+</insert>
+
+<!-- 멤버 select box 출력 -->
+<select id="selectMember" resultType="com.class_ic.vo.MemberDTO" parameterType="String">
+   SELECT classCode FROM class WHERE email=#{email} and classCode!=#{email}
+</select>
+
+<!-- 통합게시판 글 기수로 보내기 -->
+<insert id="boardMultiSend" parameterType="com.class_ic.vo.ClassByLectureDTO">
+insert into classbylecture values(#{lectureNo},#{classCode})
+</insert>
+
+
+<select id="selectClassByLecture" resultType="com.class_ic.vo.ClassByLectureDTO">
+select * from classbylecture
+</select>
+
+
+<insert id="insertCate" parameterType="com.class_ic.vo.CategoryDTO">
+insert into category values(#{cateCode},#{cateTitle},#{email})
+</insert>
+
+<insert id="insertSubcate" parameterType="com.class_ic.vo.SubCategoryDTO">
+
+insert into subcategory values(#{subcateCode},#{cateCode},#{subcateTitle},#{email})
+</insert>
+
+<!-- 링크 게시판 출력  --> 
+ <select id="linkList" resultType="com.class_ic.vo.LectureBoardDTO"  parameterType="String">
+select  * from  link  where classCode = #{classCode} 
+</select>
+ 
+<!-- 링크 입력  --> 
+<insert id="linkInsert" parameterType="com.class_ic.vo.SubCategoryDTO"> 
+insert into link (linktitle, linksrc, classCode ) values (#{linkTitle},#{linkSrc}, #{classCode});  
+</insert>
+
+<!--링크  삭제 -->
+<delete id="deleteLink" parameterType="Integer">
+   delete from link where linkNo=#{linkNo}
+</delete>
+
+<!--링크 수정화면 출력   --> 
+<select id="linkboardEdit" resultType="com.class_ic.vo.LectureBoardDTO" parameterType="Integer">
+   select * from link where linkNo=#{linkNo}
+</select>
+
+
+<!-- 링크 수정 완료 -->
+<update id="linkboardEditOk" parameterType="com.class_ic.vo.LectureBoardDTO">
+   update link set linkTitle=#{linkTitle}, linkSrc=#{linkSrc} where linkNo=#{linkNo}
+</update>
+ 
+ 
+ 
+</mapper>

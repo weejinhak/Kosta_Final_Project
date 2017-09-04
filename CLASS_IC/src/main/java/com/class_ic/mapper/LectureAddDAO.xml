@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.class_ic.dao.LectureAddDAO">
+
+	<insert id="insert" parameterType="com.class_ic.vo.LectureDTO">
+   INSERT INTO class (classCode,classTitle,classStart,classOpenTime,classEnd,classCloseTime,email)
+    VALUES(#{classCode}, #{classTitle}, #{classStart},#{classOpenTime},#{classEnd},#{classCloseTime},#{email} )
+   </insert>
+
+   <select id="getlecture" resultType="com.class_ic.vo.LectureDTO">
+      SELECT * FROM class WHERE email=#{email} and classCode!=#{email}
+   </select>
+
+   <select id="getlectureStudent" resultType="com.class_ic.vo.LectureDTO">
+      SELECT c.classCode as classCode, c.classTitle as classTitle, c.classStart as classStart, c.classOpenTime as classOpenTime, c.classEnd as classEnd, c.classCloseTime as classCloseTime
+      FROM ClassMember cm JOIN  Class c
+      ON   cm.classCode=c.classCode
+      WHERE cm.email=#{email}
+   </select>
+   
+   <insert id="inputMyClassCode" parameterType="String">
+      INSERT INTO classmember (email, classCode)
+      SELECT #{param1}, #{param2} FROM  dual
+      WHERE NOT EXISTS
+      (
+        SELECT email, classCode
+        FROM classmember
+        WHERE  email=#{param1} AND classCode=#{param2}
+      )
+   </insert>
+   
+   <select id="searchMemberClassMember" resultType="Integer">
+      SELECT count(*) FROM classmember where email=#{param1} and classCode=#{param2}
+   </select>
+
+<!-- 최초 가입시 classCode email 로 넣기-->
+<insert id="insertDefault" parameterType="com.class_ic.vo.LectureDTO">
+   INSERT INTO class (classCode,email)
+    VALUES(#{classCode}, #{email} )
+   </insert>
+</mapper>

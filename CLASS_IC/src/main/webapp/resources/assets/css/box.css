@@ -1,0 +1,67 @@
+html, body{
+   padding:0px;
+   margin:0px;
+   font-family: 'Ubuntu', sans-serif;
+   color:#FFF;
+}
+
+html{ height:100%; background:linear-gradient(#222, #333); }
+body *{ box-sizing:border-box; }
+h4{ text-align:center; margin-bottom:20px;}
+a{ color:white; }
+
+.container{
+   box-sizing:border-box;
+   width:572px;
+   min-height:400px;
+   margin:auto;
+   border-radius:4px;
+   background:linear-gradient(#465, #475);
+   box-shadow:0px 4px 12px rgba(0, 0, 0, 0.5);
+   padding:0.1px;
+}
+   .slot{
+      display:inline-block;
+      box-sizing:border-box;
+      margin:20px;
+      width:100px;
+      height:100px;
+      border:2px dashed white;
+      border-radius:6px;
+      text-align:center;
+      vertical-align:top;
+   }
+      i:not(.empty){
+         vertical-align:top;
+         font-size:36px;
+         width:102px;
+         height:101px;
+         border:2px solid #232323;
+         border-radius:5px;
+         line-height:100px;
+         margin-top:-2px;
+         margin-left:-2px;
+         background:linear-gradient(#469, #468);
+         box-shadow:0px 2px 4px rgba(0, 0, 0, 0.3);
+         box-sizing:border-box;
+         &.changeStart{
+            animation:shrink 0.5s;
+         }
+         &.changeFirst{
+            animation:grow 1s;
+         }
+         &.changeEnd{
+            animation:grow 0.5s;
+         }
+      }
+   }
+}
+
+@keyframes grow{
+   from{ transform:scale(0); }
+   to{ transform:scale(1); }
+}
+@keyframes shrink{
+   from{ transform:scale(1); }
+   to{ transform:scale(0); }
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.class_ic.dao.CalendarDAO">
+   
+<!-- 일정 등록 완료 -->   
+<insert id="CalendarWriteOk" parameterType="com.class_ic.vo.CalendarDTO">  
+insert into Calendar(calNo,classCode,calStart,calEnd,calTitle,calContent,color) values(#{calNo},#{classCode},#{calStart},#{calEnd},#{calTitle},#{calContent},#{color})
+</insert>
+   
+<!-- 일정 보기 -->
+<select id="CalendarList"  resultType="com.class_ic.vo.CalendarDTO">
+select calNo,calStart, calEnd, calTitle,color from Calendar
+</select>
+   
+<!-- 일정 수정-->
+<update id="CalendarEdit" >
+update Calendar set calStart=#{calStart}, calEnd=#{calEnd}, calTitle=#{calTitle}, calContent=#{calContent} where calNo=#{calNo}
+</update>
+
+   
+<!-- 일정 삭제  -->
+<delete id="CalendarDelete" >
+delete from Calendar where calNo=#{calNo}
+</delete>   
+    
+<!-- 그날의 강의  -->
+<select id="CalendarTodayClass" resultType="com.class_ic.vo.TodayLectureVO" parameterType="String">
+SELECT b.lectureTitle , t.lectureNo
+FROM todayslecture t JOIN LectureBoard b ON t.lectureNo = b.lectureNo 
+WHERE t.lectureBM=#{param1}
+</select>
+
+<!-- 히스토리 -->
+<select id="HistoryList" resultType="com.class_ic.vo.CalendarDTO">
+select * from calendar order by calStart 
+</select>
+
+</mapper>

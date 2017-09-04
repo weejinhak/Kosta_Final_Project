@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.class_ic.dao.AlarmDAO">
+
+	<!-- 알림 추가 -->
+	<insert id="insertAlarm" parameterType="com.class_ic.vo.All_Alarm_DTO">
+		insert into message (msContent, msSendTime, emailS) values
+		(#{msContent},#{msSendTime},#{emailS});
+	</insert>
+
+	<!-- 알림 insert된거 select 해오기 -->
+	<select id="selectMessageNum" resultType="com.class_ic.vo.All_Alarm_DTO">
+		select messageNo,msContent,emailS from message where messageNo=(select max(messageNo) from message)
+	</select>
+
+	<!--알림 select해온거 messageSend 테이블에 insert -->
+	<insert id="insertMessageReceive" parameterType="com.class_ic.vo.All_Alarm_DTO">
+		insert into messageReceive(emailR, messageNo,readTime,readState,deleteStateR)
+		values (#{emailR},#{messageNo},now(),#{readState},#{deleteStateR})
+	</insert>
+
+	<!--알림 select해온거 messageReceive 테이블에 insert -->
+	<insert id="insertMessageSend" parameterType="com.class_ic.vo.All_Alarm_DTO">
+		insert into messageSend(emailS,messageNo,deleteStateS) values
+		(#{emailS},#{messageNo},#{deleteStateS});
+	</insert>
+
+	<!-- 알림 total count 가져오기 -->
+	<select id="totalCount" resultType="Integer" parameterType="String">
+		select count(*) as total_count from messagereceive where emailR=#{emailR} and readState=1;
+	</select>
+
+
+	<!-- Count Update -->
+	<update id="updateAlarmCount" parameterType="String">
+	  update messagereceive set readState=0 where emailR=#{param1} and readState=1;
+	</update>
+
+</mapper>

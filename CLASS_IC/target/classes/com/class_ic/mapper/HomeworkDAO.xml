@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.class_ic.dao.HomeworkDAO">
+
+<!-- 강사 -->
+<!-- 과제 게시판 메인카테고리 출력  2017.06.27 최은혜 -->
+<select id="selectCate" parameterType="String" resultType="com.class_ic.vo.HomeworkDTO">
+	select cateCode,cateTitle from category where email=#{email}
+</select>
+
+<!-- 강사 이메일, 기수 출력: 2017.06.30 최은혜 -->
+<select id="teacherClassCode" parameterType="com.class_ic.vo.HomeworkDTO" resultType="com.class_ic.vo.HomeworkDTO">
+	SELECT c.email as email, c.classCode as classCode
+	FROM
+(SELECT classCode, email
+FROM    class
+WHERE    email = #{email}) st  JOIN class c
+ON st.classCode= c.classCode; 
+</select>
+
+<!-- 카테고리별 조 등록 : 2017.06.28 최은혜 -->
+<insert id="addTeamDao" parameterType="com.class_ic.vo.HomeworkDTO">
+	insert into groupcategory(email,classCode,cateCode,partyName) 
+	values(#{email},#{classCode},#{cateCode},#{partyName})
+</insert> 
+
+<!-- 카테고리 선택시 조 출력 : 2017.06.29 최은혜 -->
+<select id="selectTeamDao"  parameterType="com.class_ic.vo.HomeworkDTO" resultType="com.class_ic.vo.HomeworkDTO">
+	select partyName from groupcategory where classCode=#{classCode} and cateCode=#{cateCode} and email=#{email} order by partyName
+</select>
+
+
+<!-- 공지글  등록 : 2017.06.29 최은혜 -->
+<insert id="addNoticeDao" parameterType="com.class_ic.vo.HomeworkDTO">
+	insert into assignboard(classCode,email,cateCode,assignTitle,assignContent,assignDate,assignNotice)
+	values(#{classCode},#{email},#{cateCode},#{assignTitle},#{assignContent},now(),#{assignNotice});
+</insert> 
+
+<!-- 과제 게시판 전체 출력 : 2017.06.30 최은혜 -->
+<select id="selectAll" parameterType="com.class_ic.vo.HomeworkDTO" resultType="com.class_ic.vo.HomeworkDTO">
+select * from 
+assignboard a inner join member m on a.email=m.email
+where a.classCode=#{classCode} order by field(assignNotice,'true') desc, assignDate desc;
+</select>
+
+<!-- partyName별 출력 : 2017.06.30 위진학-->
+<select id="selectAllByTeacher" parameterType="com.class_ic.vo.HomeworkDTO" resultType="com.class_ic.vo.HomeworkDTO">
+select * from assignboard where classCode=#{classCode}  and cateCode=#{cateCode} and partyName=#{partyName};
+</select>
+
+<!-- 과제게시판 상세보기 / 과제게시판 수정화면 출력: 2017.06.30 박소현 -->
+<select id="selectContent" resultType="com.class_ic.vo.HomeworkDTO"  parameterType="com.class_ic.vo.HomeworkDTO" >
+select * from assignboard where assignNo=#{assignNo} and email=#{email} and classCode=#{classCode}
+</select>
+
+<!--과제게시판 수정된 데이터 DB저장 : 2017.07.01 박소현-->
+<update id="homeworkEditOk" parameterType="com.class_ic.vo.HomeworkDTO">
+update assignboard set assignTitle=#{assignTitle} , assignContent=#{assignContent}where assignNo=#{assignNo} and email=#{email} and classCode=#{classCode}
+</update>
+
+<!--과제게시판 삭제 : 2017.07.01 박소현 -->
+<delete id="homeworkDelete" parameterType="Integer" >
+delete from assignboard where assignNo=#{assignNo} 
+</delete>
+
+
+<!-- 학생 -->
+<!-- 과제게시판 메인카테고리 출력 : 학생 2017.07.01 최은혜 -->
+<select id="studentMainCate" parameterType="String" resultType="com.class_ic.vo.HomeworkDTO">
+select c.cateCode as cateCode from 
+classmember cm inner join category c on cm.email=c.email
+inner join classicauthority ca on ca.email = c.email
+where cm.classCode=#{classCode} and ca.authority='ROLE_TEACHER';
+</select>
+
+<!-- 카테고리 선택시 조 출력 : 학생  2017.07.01 최은혜 -->
+<select id="selectTeamStudent"  parameterType="com.class_ic.vo.HomeworkDTO" resultType="com.class_ic.vo.HomeworkDTO">
+	select partyName from groupcategory where classCode=#{classCode} and cateCode=#{cateCode} order by partyName
+</select>
+
+<!-- 과제 게시판 전체 출력 : 학생 2017.07.01 최은혜 -->
+<select id="selectAllStudent" parameterType="com.class_ic.vo.HomeworkDTO" resultType="com.class_ic.vo.HomeworkDTO">
+select * from 
+assignboard a inner join member m on a.email=m.email
+where a.classCode=#{classCode} order by assignDate desc;
+</select>
+
+<!-- partyName별 출력 : 학생-->
+<select id="selectAllByStudent" parameterType="com.class_ic.vo.HomeworkDTO" resultType="com.class_ic.vo.HomeworkDTO">
+select * from assignboard where classCode=#{classCode}  and cateCode=#{cateCode} and partyName=#{partyName};
+</select>
+
+<!-- 공지글  등록 : 2017.06.29 최은혜 -->
+<insert id="addHomeworkDao" parameterType="com.class_ic.vo.HomeworkDTO">
+	insert into assignboard(classCode,email,cateCode,assignTitle,assignContent,assignDate,assignNotice,partyName)
+	values(#{classCode},#{email},#{cateCode},#{assignTitle},#{assignContent},now(),#{assignNotice},#{partyName});
+</insert>
+
+
+</mapper>
+
+
+
+

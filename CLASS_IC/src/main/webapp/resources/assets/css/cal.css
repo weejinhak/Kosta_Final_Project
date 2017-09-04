@@ -1,0 +1,209 @@
+@import "bourbon";
+
+@import url(https://fonts.googleapis.com/css?family=Varela+Round);
+
+$bg: #1e1e1e;
+$modal:#ECECEC;
+$modal-accent: #4E9CFF;
+$open: #F47265;
+$open-shadow: #e84d3e;
+
+%center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+//Base
+* {box-sizing: border-box;}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	background: $bg;
+	overflow:hidden;
+}
+
+body {
+  font-family: 'Varela Round', sans-serif;
+}
+
+//open
+.btn.open {
+	@extend %center;
+	color: whitesmoke;
+	width: 250px;
+	height: 70px;
+	background: $open;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	padding: 22px 0;
+	border-radius: 3px;
+	box-shadow: 0 8px 0 0 $open-shadow;
+	cursor: pointer;
+	transition: all .3s ease;
+	z-index: 5;
+	
+	&:hover {
+		box-shadow: 0 5px 0 0 darken($open-shadow, 2%);
+		margin-top: 3px;
+	}
+	
+	&:active {
+		box-shadow: 0 0 0 0 darken($open-shadow, 6%);
+		margin-top: 8px;		
+	}
+	
+}
+
+.circle {
+	border-radius: 100%;
+	height: 2px;
+	width: 2px;
+	background: $open;
+	opacity: .3;
+	@extend %center;
+	z-index: 2;
+	transition: all .8s ease;
+}
+
+//Modal 
+.modal {
+	@extend %center;
+	//height: 250px;
+	//width: 550px;
+	background: $modal;
+	border-radius: 3px;
+	box-shadow: 0 8px 0 0 darken($modal, 18%);
+	padding: 0;
+	
+	.title {
+		color: $modal-accent;
+		//float: left;
+		font-size: 28px;
+		font-weight: bold;
+		margin-top: -5px;
+		padding: 10px 15px 10px 20px;
+		border-bottom: 5px solid $modal-accent;
+		margin: -15px -20px 12px;
+		
+		i {
+			float: right;
+			color: $bg;
+			opacity: .3;
+			transition: all .2s ease;
+			cursor: pointer;
+			
+			&:hover {
+				opacity: .5;
+			}
+		}
+	}
+	
+	.copy {
+		float: none;
+		clear: both;
+		font-size: 16px;
+	}
+	
+	.copy {
+		line-height: 1.3;
+	}
+	
+	.btn.close {
+		@extend .btn.open;
+		top: 78%;
+		height: 50px;
+		padding: 15.5px;
+		font-size: 24px;
+		background: lighten($modal-accent, 6%);
+		box-shadow: 0 8px 0 0 $modal-accent;
+		cursor: pointer;
+		transition: all .3s ease;
+
+		&:hover {
+			box-shadow: 0 5px 0 0 darken($modal-accent, 2%);
+			margin-top: 3px;
+		}
+
+		&:active {
+			box-shadow: 0 0 0 0 darken($modal-accent, 6%);
+			margin-top: 8px;		
+		}
+	}
+}
+
+.modal-container {
+	display: none;
+}
+
+.in {
+	animation: in 1s ease;
+}
+
+.out {
+	animation: out 1s ease;
+}
+
+@keyframes in {
+	0% {
+		height: 0;
+		width: 0;
+		z-index: 0;
+	}
+	
+	30% {
+		top: 20%;
+		z-index: 0;
+	}
+	
+	60% {
+		z-index: 1000;
+	}
+
+	100% {
+		top: 50%;
+		z-index: 1000;
+		height: 250px;
+	  width: 550px;
+	}
+}
+
+@keyframes out {
+	0% {
+		top: 50%;
+		z-index: 1000;
+		height: 250px;
+	  width: 550px;
+	}
+	
+	30% {
+		top: 80%;
+		z-index: 1000;
+		padding: 0;
+	}
+	
+	60% {
+		z-index: 0;		
+		
+	}
+	
+	90%, 100% {
+		height: 0;
+		width: 0;
+		z-index: 0;
+	}
+}
+
+.circle-active {
+	height: 700px;
+	width: 700px;
+	opacity: 0;
+}
+
+.circle-hide {
+	opacity: 0!important;
+}

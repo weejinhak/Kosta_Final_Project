@@ -1,0 +1,26 @@
+
+/* 
+@Project : CLASS-IC
+@File name : student_memo.jsp
+@Author : 최은혜
+@Data : 2017.06.15
+@Desc : 
+*/
+
+@CHARSET "UTF-8";
+
+@import "https://fonts.googleapis.com/css?family=Roboto:400,700,500";
+
+
+#content{
+	margin-top: 50px;
+}
+
+.alert.alert-primary {
+    margin-left: 20px;
+}
+
+
+
+
+

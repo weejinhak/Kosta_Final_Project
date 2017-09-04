@@ -1,0 +1,199 @@
+.ant body {
+	 background-color: #3b2e8f;
+	 font-family: 'Open Sans', sans-serif;
+}
+
+.ant h1 {
+	font-size: 34px;
+	margin: 0;
+	font-weight: 600;
+}
+
+.ant h3 {
+	font-size: 16px;
+	margin: 0;
+	font-weight: 700;
+}
+
+.ant h4 {
+	font-size: 11px;
+	margin: 0;
+	font-weight: 400;
+}
+
+.ant h5 {
+	font-size: 11px;
+	font-weight: 600;
+	margin: 25px 0 25px 0;
+}
+
+.ant h6 {
+	font-weight: 600;
+	margin: 0;
+}
+
+.ant .container {
+	margin: 0 auto;
+    width: 300px;
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.ant .first {
+	height: 300px;
+}
+
+.ant .second {
+	margin-top: 0px;
+	height: 220px;
+	border-top: 1px solid #3b2e8f;
+}
+
+.ant .top {
+	top: -10px;
+	position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #3b2e8f;
+}
+.ant .bottom {
+	bottom: -10px;
+	position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #3b2e8f;
+}
+.ant .left {
+	left: -10px;
+	position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #3b2e8f;
+}
+.ant .right {
+	right: -10px;
+	position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background-color: #3b2e8f;
+}
+
+.ant .spacer {
+	padding: 25px 20px 20px 20px;
+}
+
+.ant .spacer2 {
+	padding: 15px 20px 20px 20px;
+}
+
+.ant .spacer > img {
+	width: 57px;
+	float: left;
+	padding-right: 30px;
+}
+
+.ant .name-flight {
+	float: left;
+}
+
+.ant .name-flight > h3 {
+	text-transform: uppercase;
+	color: #4b4091;
+}
+
+.ant .name-flight > h4 {
+	color: #7c7c7c;
+	margin-top: -5px;
+}
+
+.ant h4 > span {
+	font-size: 15px;
+	font-weight: 700;
+	color: #d9118d;
+}
+
+.ant .destination {
+	margin-top: 70px;
+}
+
+.ant .from {
+	float: left;
+	width: 33%;
+	color: #5d6474;
+}
+
+.ant .center {
+	float: left;
+	width: 33%;
+
+}
+
+.ant i {
+	color: #5d6474;
+	padding-top: 15px;
+	padding-left: 25%;
+}
+
+.ant .to {
+	float: left;
+	width: 33%;
+	color: #5d6474;
+}
+
+.ant .from > span {
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.ant .to > span {
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.ant .left-side {
+	float: left;
+	width: 33%;
+}
+
+.ant h5 > span {
+	font-weight: 700;
+	font-size: 15px;
+	color: #da0d8d;
+}
+
+
+.ant .right-side {
+	float: right;
+	width: 33%;
+}
+
+.ant h5 {
+	color: #5e6675;
+}
+
+.ant .spacer2 > h3 {
+	color: #4b4091;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.ant .flight-gate {
+	float: left;
+	width: 66%;
+	margin-top: 15px;
+}
+
+.ant .flight-gate > h5 {
+	margin: 0 0 5px 0;
+}
+
+.ant .text-barcode > img {
+	float: left;
+	width: 33%;
+	margin-top: 5px;
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+@Project : CLASS-IC
+@File name : TodoListDAO.xml
+@Author : 박소현
+@Data : 2017.06.23
+@Desc :
+ -->
+ 
+<mapper namespace="com.class_ic.dao.TodoListDAO">
+
+<select id="TodoList" resultType="com.class_ic.vo.TodoListDTO" parameterType="String">
+select * from todo where email=#{email} order by todoNo
+</select>
+
+<insert id="TodoListOk" parameterType="com.class_ic.vo.TodoListDTO">
+insert into todo(todoList,email) values(#{todoList},#{email})
+</insert>
+
+<delete id="TodoListDelete">
+delete from todo where todoNo=#{todoNo}
+</delete>
+
+</mapper>

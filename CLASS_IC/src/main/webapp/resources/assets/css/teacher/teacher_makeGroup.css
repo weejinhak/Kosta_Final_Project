@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+	.selectName {
+        width: 200px;
+        float: left;
+        min-height: 200px;
+        font-size: 15px;
+        line-height: 20px;
+       
+    }
+    .controls {
+        width: 100px;
+        float: left;
+    }
+    .controls a {
+        background-color: #999999;
+        border-radius: 20px;
+        border: 0px solid #000;
+        color: #ffffff;
+        padding: 7px;
+        font-size: 12px;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        margin: 6px;
+        width: 80px;
+        font-family: 'open sans';
+    }

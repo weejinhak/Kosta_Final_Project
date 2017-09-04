@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+@Project : CLASS-IC
+@File name : memo.xml
+@Author : 최은혜
+@Data : 2017.06.15
+@Desc :
+ -->
+ <mapper namespace="com.class_ic.dao.MemoDAO">
+ 
+ <!-- 글등록 : 2017.06.21 최은혜 -->
+<insert id="insertMemo" parameterType="com.class_ic.vo.MemoVO" >
+ 	insert into memo(email,memoText,memoDate) values(#{email},#{memoText},now())
+</insert>
+
+ <!-- 글삭제 : 2017.06.21 최은혜 -->
+<delete id="deleteMemo" parameterType="com.class_ic.vo.MemoVO">
+	delete from memo where email=#{email} and memoNo=#{memoNo}
+	<!-- delete from memo where email=#{email} -->
+</delete>
+
+ <!-- 글출력 : 2017.06.21 최은혜 -->
+<select id="selectMemo" parameterType="String" resultType="com.class_ic.vo.MemoVO">
+	select memoNo, memoText from memo where email=#{email}
+</select>
+
+<!-- 단일 글 출력 : 2017.06.21 최은혜  -->
+<select id="oneText" parameterType="com.class_ic.vo.MemoVO" resultType="com.class_ic.vo.MemoVO">
+	select memoNo , memoText from memo where email=#{email} and memoNo=#{memoNo}
+</select>
+
+</mapper>
+

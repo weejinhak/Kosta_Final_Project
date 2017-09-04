@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.class_ic.dao.AttendanceDAO">
+
+	<insert id="insert" parameterType="com.class_ic.vo.AttandanceDTO">
+		insert into
+		attendance(email,attendDate,inClass,outClass,attendState,classCode)
+		values
+		(#{email},now(),#{inClass},#{outClass},
+		#{attendState},#{classCode})
+	</insert>
+
+	<select id="memberSelectAll" resultType="com.class_ic.vo.MemberDTO">
+	select * from member where email in(select email from classicauthority where authority='ROLE_STUDENT')
+	</select>
+
+	<select id="selectClassNumber" parameterType="String"
+		resultType="String">
+
+		select classCode from classMember where email=#{email}
+	</select>
+
+	<select id="todayAttendaceData" resultType="com.class_ic.vo.AttandanceDTO">
+	select attendNo,inClass,outClass,classCode,email from attendance where attendDate=CURDATE()
+	</select>
+	
+	<select id="selectStartEndTime" resultType="com.class_ic.vo.LectureDTO">
+	
+      select * from class where classCode=#{classCode}
+	</select>
+	
+	<update id="updateAttendaceState"  parameterType="String">
+	update attendance set attendState=#{param1} where email=#{param2} and attendDate=CURDATE()
+	</update>
+	
+</mapper>

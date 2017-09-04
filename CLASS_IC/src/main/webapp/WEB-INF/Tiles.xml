@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+
+	<!-- 
+	memo
+	2017.06.16 최은혜
+	 -->
+	<definition name="memo.*" template="/WEB-INF/views/student/{1}/inc/layout.jsp">
+    	<put-attribute name="navi"  value="/WEB-INF/views//student/{1}/inc/navi.jsp" />
+    	<put-attribute name="header"  value="/WEB-INF/views//student/{1}/inc/header.jsp" />   	
+    	<put-attribute name="content" value="/WEB-INF/views/student/memo/{1}.jsp" />
+    </definition> 
+
+ 	<definition name="*.*" template="/WEB-INF/views/{1}/inc/layout.jsp">
+    	<put-attribute name="navi"  value="/WEB-INF/views/{1}/inc/navi.jsp" />
+    	<put-attribute name="header"  value="/WEB-INF/views/{1}/inc/header.jsp" />   	
+    	<put-attribute name="pop" value="/WEB-INF/views/{1}/inc/pop.jsp" />
+    	<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+ 
+    </definition> 
+
+</tiles-definitions>  
+
+
+
+
+ 
